@@ -23,11 +23,51 @@ This problem uses the Instacart data. DO NOT include this dataset in your local 
 ```{r}
 library(p8105.datasets) 
 data("instacart")
-instacart
 ```
 
 ##How many aisles are there, and which aisles are the most items ordered from?
 
+```{r}
+aisle_df = 
+  instacart %>%
+  group_by(aisle) %>% 
+  summarize(n_obs = n())
+
+n_obs = 
+  aisle_df %>% 
+  select(-aisle)
+
+aisle_obs_df = 
+  left_join(aisle_df, n_obs) %>% 
+  mutate(n_obs = as.numeric(n_obs)) %>% 
+  arrange(n_obs)
+
+n_row_aisle = row(aisle_df)
+```
+
+There are `r n_row_aisle` aisles in the data frame.The `fresh vegetables` aisles are the most items ordered from.
+
 ##Make a plot that shows the number of items ordered in each aisle, limiting this to aisles with more than 10000 items ordered. Arrange aisles sensibly, and organize your plot so others can read it.
+
+```{r}
+aisle_df_10000 = 
+  aisle_df %>% 
+  filter(n_obs > 10000) %>% 
+  arrange(n_obs)
+knitr::kable(aisle_df_10000)
+```
+
 ##Make a table showing the three most popular items in each of the aisles `baking ingredients`, `dog food care`, and `packaged vegetables fruits`. Include the number of times each item is ordered in your table.
+
+```{r}
+most_popular_item = 
+  instacart %>% 
+  filter(aisle %in% c("baking ingredients","dog food care","packaged vegetables fruits")) %>% 
+  group_by(aisle,product_name) %>% 
+  summarize(n_obs = n()) %>% 
+  arrange(aisle,n_obs)
+most_popular_item
+```
+
+
 ##Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
