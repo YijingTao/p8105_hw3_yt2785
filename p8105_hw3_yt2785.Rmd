@@ -155,6 +155,7 @@ knitr::kable(brfss_2010)
 ```{r}
 excellent_df = 
   brfss %>% 
+  filter(response == "Excellent") %>% 
   group_by(locationabbr, year) %>% 
   summarize(mean_data_value = mean(data_value, na.rm = TRUE)) 
 knitr::kable(excellent_df)
