@@ -24,7 +24,7 @@ This problem uses the Instacart data. DO NOT include this dataset in your local 
 ```{r}
 library(p8105.datasets) 
 data("instacart")
-instacart%>% 
+instacart %>% 
   janitor::clean_names()
 ```
 
@@ -205,7 +205,7 @@ accel_df =
 name_accel = colnames(accel_df)
 n_col_accel = ncol(accel_df)
 ```
-There are `r n_col_accel` observations and `r name_accel` variables exist.
+There are `r n_col_accel` observations and `r name_accel` variables exist. All of the minute and their activity count is linked together clearly.
 
 
 #Traditional analyses of accelerometer data focus on the total activity over the day. Using your tidied dataset, aggregate accross minutes to create a total activity variable for each day, and create a table showing these totals. Are any trends apparent?
@@ -219,7 +219,7 @@ accel_df %>%
 knitr::kable(select_activity_df)
 
 ```
-
+It seems that in the same week, the total activity count increase from Monday to Sunday.But in the 4th and 5th week, the total activity count is abnormally low on Saturday.
 
 #Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and use color to indicate day of the week. Describe in words any patterns or conclusions you can make based on this graph.
 
@@ -237,4 +237,4 @@ accel_df %>%
                    limits = c(0, 1440))
 
 ```
-
+The highest activity count always appear at 8pm everyday, and it's always the lowest at 12am everyday. 12pm is also a small peak of activity count. These mean that the man will take relax before 8am everyday and will have the most active time at 8pm everyday.
