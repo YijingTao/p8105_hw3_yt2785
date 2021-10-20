@@ -78,9 +78,9 @@ instacart_df %>%
   ) + 
   theme_minimal() +
   theme(axis.text.y = element_text(hjust = 1), 
-        axis.text = element_text(size = 8),
+        axis.text = element_text(size = 4),
         legend.position = "bottom",
-        legend.text = element_text(size = 8)) + 
+        legend.text = element_text(size = 4)) + 
   coord_flip()
 ```
 
@@ -95,8 +95,9 @@ most_popular_item =
   group_by(aisle, product_name) %>% 
   summarize(n_times = n()) %>% 
   mutate(product_rank = min_rank(desc(n_times))) %>% 
-  filter(product_rank == 1) %>% 
-  select(-product_rank)
+  filter(product_rank %in% c("1","2","3")) %>% 
+  select(-product_rank) %>% 
+  arrange(desc(n_times), by_group = TRUE)
   knitr::kable(most_popular_item)
 ```
 
