@@ -78,11 +78,13 @@ instacart_df %>%
   ) + 
   theme_minimal() +
   theme(axis.text.y = element_text(hjust = 1), 
-        axis.text = element_text(),
+        axis.text = element_text(size = 8),
         legend.position = "bottom",
-        legend.text = element_text()) + 
+        legend.text = element_text(size = 8)) + 
   coord_flip()
 ```
+
+**The x-axis represents the name of the aisles, and the y-axis represents the number of the aisles. From this plot we can found that the number of `Fresh Vegetables` is the largest and the number of `butter` is the smallest.** 
 
 ##Make a table showing the three most popular items in each of the aisles `baking ingredients`, `dog food care`, and `packaged vegetables fruits`.
 
@@ -90,7 +92,7 @@ instacart_df %>%
 most_popular_item = 
   instacart_df %>% 
   filter(aisle %in% c("baking ingredients","dog food care","packaged vegetables fruits")) %>% 
-  group_by(aisle,product_name) %>% 
+  group_by(aisle, product_name) %>% 
   summarize(n_times = n()) %>% 
   mutate(product_rank = min_rank(desc(n_times))) %>% 
   filter(product_rank == 1) %>% 
@@ -217,8 +219,9 @@ accel_df =
 
 name_accel = colnames(accel_df)
 n_col_accel = ncol(accel_df)
+n_row_accel = nrow(accel_df)
 ```
-**There are `r n_col_accel` observations and `r name_accel` variables exist. All of the minute and their activity count is linked together clearly.**
+**There are `r n_col_accel` variebles exist, which are `r name_accel`. And there are `r n_row_accel` observations.  All of the minute and their activity count is linked together clearly.**
 
 
 ##aggregate accross minutes to create a total activity variable for each day, and create a table showing these totals.
